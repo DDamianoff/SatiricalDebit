@@ -1,0 +1,90 @@
+{
+  "stock": [
+    {
+      "id": 1,
+      "descripcion": "Alfajor Aguila",
+      "codigo": 16483215,
+      "cantidad": 100,
+      "precioCompra": 45,
+      "precioVenta": 90
+    },
+    {
+      "descripcion": "Chicles Top 7",
+      "codigo": "18462854",
+      "cantidad": "250",
+      "precioCompra": "20",
+      "precioVenta": "80",
+      "id": 2
+    },
+    {
+      "descripcion": "CocaCola 2.5L retornable",
+      "codigo": "18463985",
+      "cantidad": "50",
+      "precioCompra": "40",
+      "precioVenta": "80",
+      "id": 3
+    }
+  ],
+  "vendedores": [
+    {
+      "nombre": "Juan",
+      "apellido": "Peralta",
+      "dni": "18182169",
+      "id": 1
+    }
+  ],
+  "clientes": [
+    {
+      "nombre": "Facundo",
+      "apellido": "D´Andrea",
+      "dni": "43291375",
+      "telefono": "3814057662",
+      "cuenta_corriente": "no",
+      "monto_corriente": "",
+      "id": 1
+    },
+    {
+      "nombre": "Patricia",
+      "apellido": "Di Turi",
+      "dni": "17182147",
+      "telefono": "381400581",
+      "cuenta_corriente": "si",
+      "monto_corriente": "10000",
+      "id": 2
+    }
+  ],
+  "ventas": [
+    {
+      "id": 1,
+      "nombreComp": "Paula Moreno",
+      "cantidad": 5,
+      "total": 450,
+      "pago": "counted",
+      "estado": "paid out"
+    },
+    {
+      "id": 2,
+      "nombreComp": "David Aibar",
+      "cantidad": 5,
+      "total": 450,
+      "pago": "current account",
+      "estado": "without paying"
+    },
+    {
+      "id": 3,
+      "nombreComp": "Victor Melinda",
+      "cantidad": 5,
+      "total": 450,
+      "pago": "counted",
+      "estado": "paid out"
+    },
+    {
+      "id": 4,
+      "nombreComp": "Laura Martinez",
+      "cantidad": 5,
+      "total": 450,
+      "pago": "counted",
+      "estado": "paid out"
+    }
+  ]
+}
