@@ -1,4 +1,4 @@
-const cards = document.getElementById('cards')
+const cardContainer = document.getElementById('card-list')
 const items = document.getElementById('items')
 const footer = document.getElementById('footer')
 const templateCard = document.getElementById('template-card').content
@@ -6,24 +6,25 @@ const templateFooter = document.getElementById('template-footer').content
 const templateCarrito = document.getElementById('template-carrito').content
 const fragment = document.createDocumentFragment()
 let carrito = {}
+let productListFromDb = []
+
 
 // Eventos
 // El evento DOMContentLoaded es disparado cuando el documento HTML ha sido completamente cargado y parseado
-document.addEventListener('DOMContentLoaded', e => { fetchData() });
-cards.addEventListener('click', e => { addCarrito(e) });
+document.addEventListener('DOMContentLoaded', () => { fetchData() });
+cardContainer.addEventListener('click', e => { addCarrito(e) });
 items.addEventListener('click', e => { btnAumentarDisminuir(e) })
 
 // Traer productos
 const fetchData = async () => {
     const res = await fetch('http://localhost:3000/stock');
-    const data = await res.json()
-    // console.log(data)
-    pintarCards(data)
+    productListFromDb = await res.json()
+    pintarCards(productListFromDb)
 }
 
 // Pintar productos
-const pintarCards = data => {
-    data.forEach(item => {
+const pintarCards = CardItemList => {
+    CardItemList.forEach(item => {
         templateCard.querySelector('h5').textContent = item.descripcion
         templateCard.querySelector('.precio').textContent = item.precioVenta
         templateCard.querySelector('.stock') .textContent = `Stock: ${item.cantidad} u.`
@@ -31,7 +32,7 @@ const pintarCards = data => {
         const clone = templateCard.cloneNode(true)
         fragment.appendChild(clone)
     })
-    cards.appendChild(fragment)
+    cardContainer.appendChild(fragment)
 }
 
 // Agregar al carrito
@@ -118,19 +119,25 @@ const btnAumentarDisminuir = e => {
     // console.log(e.target.classList.contains('btn-info'))
     if (e.target.classList.contains('btn-info')) {
         const producto = carrito[e.target.dataset.id]
-        producto.cantidad++
-        carrito[e.target.dataset.id] = { ...producto }
+        let stock = (productListFromDb[(Number(producto.id)-1)]).cantidad
+
+        if (producto.cantidad < stock) {
+            producto.cantidad++
+            carrito[e.target.dataset.id] = { ...producto }
+        }
         pintarCarrito()
     }
 
     if (e.target.classList.contains('btn-danger')) {
         const producto = carrito[e.target.dataset.id]
         producto.cantidad--
-        if (producto.cantidad === 0) {
+        if (producto.cantidad === 0)
             delete carrito[e.target.dataset.id]
-        } else {
+        else
             carrito[e.target.dataset.id] = {...producto}
-        }
+
+
+
         pintarCarrito()
     }
     e.stopPropagation()
